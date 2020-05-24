@@ -5,19 +5,55 @@
 
 # requirements
 # pip3 install paho-mqtt
+# pip3 install mcrcon
 
 import paho.mqtt.client as mqtt
 from time import time, sleep
 import signal
+import socket
+from mcrcon import MCRcon
+import config    # my local config file
+
 
 # configuration
 base_topic = 'PI1'
-mqtt_hostname = '147.228.121.4'
+mqtt_hostname = config.mqtt_hostname
 mqtt_clientname = 'test client'
+rcon_hostname = '127.0.0.1'
+rcon_port = 25575
+rcon_password = config.rcon_password
+
+
+def send_to_RCON(command):
+    # Connect
+    try:
+        mcr = MCRcon(rcon_hostname, rcon_password)
+        mcr.connect()
+    except:
+        print("Connect to rcon failed. Incorrect rcon IP or passwd?")
+        sys.exit(1)
+
+
+    print('Sending to RCON:', command)
+    
+    response = mcr.command(command)
+    
+    print('Response from RCON:', response)
+    #finally:
+    mcr.disconnect()
+
 
 # MQTT receive callback
 def on_message(client, userdata, message):
-    print("message received ",message.topic,str(message.payload.decode("utf-8")))
+    value=str(message.payload.decode("utf-8"))
+    print("message received ",message.topic,value)
+
+    if "temperature" in message.topic:
+        command='execute at @a run data merge block 217 6 -13 {Text2:"{\\"text\\":\\"\\\\u1405 ' + value + '°C \\\\u140a\\",\\"bold\\":true}"}'
+        send_to_RCON(command)
+    elif "humidity" in message.topic:
+        command='execute at @a run data merge block 217 6 -13 {Text4:"{\\"text\\":\\"\\\\u1405 ' + value + '% \\\\u140a\\",\\"bold\\":true}"}'
+        send_to_RCON(command)
 
 # Hook for cleanup after interrupt
 def signal_handler(signal, frame):
