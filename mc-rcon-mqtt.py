@@ -51,6 +51,19 @@ def on_message(client, userdata, message):
     if "temperature" in message.topic:
         command='execute at @a run data merge block 217 6 -13 {Text2:"{\\"text\\":\\"\\\\u1405 ' + value + '°C \\\\u140a\\",\\"bold\\":true}"}'
         send_to_RCON(command)
+        
+        if float(value) < 25 :
+            command='execute at @a run clone 247 4 90 243 4 82 215 4 -23'
+            send_to_RCON(command)
+        elif float(value) < 27 :
+            command='execute at @a run clone 247 4 100 243 4 92 215 4 -23'
+            send_to_RCON(command)
+        else:
+            command='execute at @a run clone 247 4 110 243 4 102 215 4 -23'
+            send_to_RCON(command)
+            
+
+
     elif "humidity" in message.topic:
         command='execute at @a run data merge block 217 6 -13 {Text4:"{\\"text\\":\\"\\\\u1405 ' + value + '% \\\\u140a\\",\\"bold\\":true}"}'
         send_to_RCON(command)
