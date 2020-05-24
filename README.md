@@ -1,2 +1,2 @@
 # MC-RCON-MQTT
-Minecraft server MQTT RCON feeder
+Feeds Minecraft server via RCON with commands received via MQTT
