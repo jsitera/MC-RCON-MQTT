@@ -67,6 +67,17 @@ def on_message(client, userdata, message):
     elif "humidity" in message.topic:
         command='execute at @a run data merge block 217 6 -13 {Text4:"{\\"text\\":\\"\\\\u1405 ' + value + '% \\\\u140a\\",\\"bold\\":true}"}'
         send_to_RCON(command)
+       
+        if float(value) < 50 :
+            command='execute at @a run function minecraft:greenhouse-normal'
+            send_to_RCON(command)
+        else:
+            command='execute at @a run function minecraft:greenhouse-mossy'
+            send_to_RCON(command)
+
+    elif "weather" in message.topic:
+        command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run weather ' + value
+        send_to_RCON(command)
 
 # Hook for cleanup after interrupt
 def signal_handler(signal, frame):
