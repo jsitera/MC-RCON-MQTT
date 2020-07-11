@@ -49,35 +49,67 @@ def on_message(client, userdata, message):
     print("message received ",message.topic,value)
 
     if "temperature" in message.topic:
-        command='execute at @a run data merge block 217 6 -13 {Text2:"{\\"text\\":\\"\\\\u1405 ' + value + '°C \\\\u140a\\",\\"bold\\":true}"}'
+        command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run data merge block 217 6 -13 {Text2:"{\\"text\\":\\"\\\\u1405 ' + value + '°C \\\\u140a\\",\\"bold\\":true}"}'
         send_to_RCON(command)
         
         if float(value) < 25 :
-            command='execute at @a run clone 247 4 90 243 4 82 215 4 -23'
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run clone 247 4 90 243 4 82 215 4 -23'
             send_to_RCON(command)
         elif float(value) < 27 :
-            command='execute at @a run clone 247 4 100 243 4 92 215 4 -23'
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run clone 247 4 100 243 4 92 215 4 -23'
             send_to_RCON(command)
         else:
-            command='execute at @a run clone 247 4 110 243 4 102 215 4 -23'
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run clone 247 4 110 243 4 102 215 4 -23'
             send_to_RCON(command)
             
 
 
     elif "humidity" in message.topic:
-        command='execute at @a run data merge block 217 6 -13 {Text4:"{\\"text\\":\\"\\\\u1405 ' + value + '% \\\\u140a\\",\\"bold\\":true}"}'
+        command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run data merge block 217 6 -13 {Text4:"{\\"text\\":\\"\\\\u1405 ' + value + '% \\\\u140a\\",\\"bold\\":true}"}'
         send_to_RCON(command)
        
         if float(value) < 50 :
-            command='execute at @a run function minecraft:greenhouse-normal'
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run function minecraft:greenhouse-normal'
             send_to_RCON(command)
         else:
-            command='execute at @a run function minecraft:greenhouse-mossy'
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run function minecraft:greenhouse-mossy'
             send_to_RCON(command)
 
     elif "weather" in message.topic:
         command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run weather ' + value
         send_to_RCON(command)
+
+    elif "button" in message.topic:
+       
+        if value == "on" :
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run setblock 180 4 113 minecraft:redstone_block'
+            send_to_RCON(command)
+        else:
+            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run setblock 180 4 113 minecraft:air'
+            send_to_RCON(command)
+
+    elif "joystickX" in message.topic:
+       
+        if value == "R" :
+            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~0.5 ~ ~'
+            send_to_RCON(command)
+        else:
+            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~-0.5 ~ ~'
+            send_to_RCON(command)
+
+    elif "joystickY" in message.topic:
+       
+        if value == "U" :
+            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~ ~ ~-0.5'
+            send_to_RCON(command)
+        else:
+            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~ ~ ~0.5'
+            send_to_RCON(command)
+
+    elif "joystickB" in message.topic:
+            
+            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run summon firework_rocket ~ ~1 ~ {LifeTime:30,FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:1,Explosions:[{Type:3,Flicker:0,Trail:1,Colors:[I;3887386,4312372],FadeColors:[I;1973019]}]}}}}'
+            send_to_RCON(command)
 
 # Hook for cleanup after interrupt
 def signal_handler(signal, frame):
