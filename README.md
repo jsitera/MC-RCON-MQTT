@@ -8,3 +8,4 @@ The script runs on the Minecraft server accessing locally the RCON port. It subs
 - The script is feeded by temperature/humidity sensor and generates commands to update a particular sign. The real world measurement is visible in the Minecraft world. We have the sensor in our real world greenhouse and the sign in the Minecraft is located on the greenhouse located there.
 - Even the plants in the greenhouse can change its look based on the actual temperature (the script issues appropriate clone command).
 - As a bonus a rain sensor is used. If the rain sensor detects moisture it starts raining in the Minecraft world.
+- **Joystick support.** Let's play with object in Minecraft controlled by joystick connected to ESP.
