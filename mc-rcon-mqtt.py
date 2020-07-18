@@ -25,25 +25,16 @@ rcon_password = config.rcon_password
 
 
 def send_to_RCON(command):
-    # Connect
-    try:
-        mcr = MCRcon(rcon_hostname, rcon_password)
-        mcr.connect()
-    except:
-        print("Connect to rcon failed. Incorrect rcon IP or passwd?")
-        sys.exit(1)
-
 
     print('Sending to RCON:', command)
     
     response = mcr.command(command)
     
     print('Response from RCON:', response)
-    #finally:
-    mcr.disconnect()
 
 
 # MQTT receive callback
+######## edit here what to do when MQTT message is received ################
 def on_message(client, userdata, message):
     value=str(message.payload.decode("utf-8"))
     print("message received ",message.topic,value)
@@ -91,25 +82,28 @@ def on_message(client, userdata, message):
     elif "joystickX" in message.topic:
        
         if value == "R" :
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~0.5 ~ ~'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~0.25 ~ ~'
             send_to_RCON(command)
         else:
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~-0.5 ~ ~'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~-0.25 ~ ~'
             send_to_RCON(command)
 
     elif "joystickY" in message.topic:
        
         if value == "U" :
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~-0.5'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~-0.25'
             send_to_RCON(command)
         else:
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~0.5'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~0.25'
             send_to_RCON(command)
 
     elif "joystickB" in message.topic:
             
             command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run setblock 183 4 113 minecraft:redstone_block'
             send_to_RCON(command)
+
+######  END of the section to be edited
+
 
 # Hook for cleanup after interrupt
 def signal_handler(signal, frame):
@@ -119,7 +113,7 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 interrupted = False
     
-# MQTT connection
+# MQTT connection initialization
 mqtt_client = mqtt.Client()
 mqtt_client.on_message = on_message
 
@@ -130,6 +124,16 @@ except:
   sys.exit(1)
 else:
   print("MQTT connection established.")
+
+# RCON connection initialization
+try:
+  mcr = MCRcon(rcon_hostname, rcon_password)
+  mcr.connect()
+except:
+  print("Connect to rcon failed. Incorrect rcon IP or passwd?")
+  sys.exit(1)
+else:
+  print("RCON connection established.")
 
 
 mqtt_client.loop_start()
@@ -152,4 +156,6 @@ while True:
       # cleanup
       print("mc-rcon-mqtt ending.")
       mqtt_client.disconnect()
+      mcr.disconnect()
+
       break
