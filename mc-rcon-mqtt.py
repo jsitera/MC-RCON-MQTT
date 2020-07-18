@@ -91,24 +91,24 @@ def on_message(client, userdata, message):
     elif "joystickX" in message.topic:
        
         if value == "R" :
-            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~0.5 ~ ~'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~0.5 ~ ~'
             send_to_RCON(command)
         else:
-            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~-0.5 ~ ~'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~-0.5 ~ ~'
             send_to_RCON(command)
 
     elif "joystickY" in message.topic:
        
         if value == "U" :
-            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~ ~ ~-0.5'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~-0.5'
             send_to_RCON(command)
         else:
-            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run tp c8a74181-810d-43c0-942f-e67051e4c79b ~ ~ ~0.5'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~0.5'
             send_to_RCON(command)
 
     elif "joystickB" in message.topic:
             
-            command='execute at c8a74181-810d-43c0-942f-e67051e4c79b run summon firework_rocket ~ ~1 ~ {LifeTime:30,FireworksItem:{id:firework_rocket,Count:1,tag:{Fireworks:{Flight:1,Explosions:[{Type:3,Flicker:0,Trail:1,Colors:[I;3887386,4312372],FadeColors:[I;1973019]}]}}}}'
+            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run setblock 183 4 113 minecraft:redstone_block'
             send_to_RCON(command)
 
 # Hook for cleanup after interrupt
