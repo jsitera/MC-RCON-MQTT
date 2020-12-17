@@ -1,3 +1,4 @@
+*Tools to connect vanilla Minecraft server with IoT devices via MQTT. This repository contains tool allowing incoming flow to the Minecraft. For outcomming flow (sending MQTT messages from Minecraft) please see the https://github.com/jsitera/MC-LOG-MQTT repository.*
 # MC-RCON-MQTT
 Feeds Minecraft server via RCON with commands created using measurements received by MQTT. The MQTT source can be an ESP with sensors. See https://github.com/jsitera/MC-MQTT-sensor
 # Description
@@ -9,3 +10,6 @@ The script runs on the Minecraft server accessing locally the RCON port. It subs
 - Even the plants in the greenhouse can change its look based on the actual temperature (the script issues appropriate clone command).
 - As a bonus a rain sensor is used. If the rain sensor detects moisture it starts raining in the Minecraft world.
 - **Joystick support.** Let's play with object in Minecraft controlled by joystick connected to ESP.
+
+# Sending commands to the Minecraft via web page
+For JavaScript webpage to send MQTT message to Minecraft server please see https://github.com/jsitera/MC-MQTT-web
