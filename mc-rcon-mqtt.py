@@ -70,36 +70,65 @@ def on_message(client, userdata, message):
         command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run weather ' + value
         send_to_RCON(command)
 
-    elif "button" in message.topic:
+    elif "buttonBlue" in message.topic:
        
         if value == "on" :
-            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run setblock 180 4 113 minecraft:redstone_block'
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 180 4 113 minecraft:redstone_block'
             send_to_RCON(command)
         else:
-            command='execute at 7a278519-5e0d-4ed5-b847-f5fc311b2170 run setblock 180 4 113 minecraft:air'
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 180 4 113 minecraft:air'
+            send_to_RCON(command)
+
+    elif "buttonGreen" in message.topic:
+       
+        if value == "on" :
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 111 minecraft:redstone_block'
+            send_to_RCON(command)
+        else:
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 111 minecraft:air'
+            send_to_RCON(command)
+
+    elif "buttonRed" in message.topic:
+       
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 190 4 116 minecraft:redstone_block'
             send_to_RCON(command)
 
     elif "joystickX" in message.topic:
        
         if value == "R" :
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~0.25 ~ ~'
+            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~0.25 ~ ~'
             send_to_RCON(command)
         else:
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~-0.25 ~ ~'
+            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~-0.25 ~ ~'
             send_to_RCON(command)
 
     elif "joystickY" in message.topic:
        
         if value == "U" :
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~-0.25'
+            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~ ~ ~-0.25'
             send_to_RCON(command)
         else:
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run tp 052497cd-b045-4eae-ae37-2513b3593671 ~ ~ ~0.25'
+            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~ ~ ~0.25'
             send_to_RCON(command)
 
     elif "joystickB" in message.topic:
             
-            command='execute at 052497cd-b045-4eae-ae37-2513b3593671 run setblock 183 4 113 minecraft:redstone_block'
+            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 113 minecraft:redstone_block'
+            send_to_RCON(command)
+
+    elif "SendMessage" in message.topic:
+            
+            command='tellraw @a {"text":"' + value + '"}'
+            send_to_RCON(command)
+
+    elif "farmbutton" in message.topic:
+       
+            command='execute at @e[tag=world] run setblock 200 4 128 minecraft:redstone_block'
+            send_to_RCON(command)
+
+    elif "buzzer" in message.topic:
+       
+            command='execute at @e[tag=world] run setblock 197 4 113 minecraft:redstone_block'
             send_to_RCON(command)
 
 ######  END of the section to be edited
@@ -118,7 +147,7 @@ mqtt_client = mqtt.Client()
 mqtt_client.on_message = on_message
 
 try:
-  mqtt_client.connect(mqtt_hostname)
+  mqtt_client.connect(mqtt_hostname,port=80)
 except:
   print("MQTT connection error.")
   sys.exit(1)
