@@ -146,18 +146,27 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 interrupted = False
+
+def on_connect(client, userdata, flags, rc):
+    if rc==0:
+        client.connected_flag=True
+        print("MQTT on_connect callback: connected ok")
+    else:
+        print("MQTT on_connect callback: Bad connection Returned code=",rc)
+
     
 # MQTT connection initialization
 mqtt_client = mqtt.Client()
+mqtt_client.on_connect=on_connect  #bind call back function
+mqtt_client.loop_start()
+mqtt.Client.connected_flag=False
+print("Connecting to MQTT broker ",mqtt_hostname)
+mqtt_client.connect(mqtt_hostname,port=mqtt_port)
+while not mqtt_client.connected_flag: #wait in loop
+    print("Wait for MQTT callback")
+    sleep(1)
 mqtt_client.on_message = on_message
 
-try:
-  mqtt_client.connect(mqtt_hostname,port=80)
-except:
-  print("MQTT connection error.")
-  sys.exit(1)
-else:
-  print("MQTT connection established.")
 
 # RCON connection initialization
 # Try to connect in infinite loop
