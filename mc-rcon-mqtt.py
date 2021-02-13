@@ -155,14 +155,18 @@ else:
   print("MQTT connection established.")
 
 # RCON connection initialization
-try:
-  mcr = MCRcon(rcon_hostname, rcon_password)
-  mcr.connect()
-except:
-  print("Connect to rcon failed. Incorrect rcon IP or passwd?")
-  sys.exit(1)
-else:
-  print("RCON connection established.")
+# Try to connect in infinite loop
+rconOK = False
+while not rconOK:
+  try:
+    mcr = MCRcon(rcon_hostname, rcon_password)
+    mcr.connect()
+  except:
+    print("Connect to rcon failed. Next try after 30s")
+    sleep(30)
+  else:
+    print("RCON connection established.")
+    rconOK=True
 
 
 mqtt_client.loop_start()
