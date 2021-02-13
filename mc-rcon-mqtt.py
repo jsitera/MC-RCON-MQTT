@@ -15,6 +15,7 @@ import socket
 from mcrcon import MCRcon
 import os
 from dotenv import load_dotenv
+import re
 
 # configuration
 load_dotenv()  # take environment variables from .env.
@@ -133,6 +134,13 @@ def on_message(client, userdata, message):
     elif "buzzer" in message.topic:
        
             command='execute at @e[tag=world] run setblock 197 4 113 minecraft:redstone_block'
+            send_to_RCON(command)
+
+    elif "ESPblock" in message.topic:
+            tokens = re.findall(r'/(.*)', message.topic)
+            name = tokens[0]
+       
+            command='execute as @e[tag=receiver,name=\'' + name + '\'] at @s run setblock ~ ~-1 ~ target[power=' + value +']'
             send_to_RCON(command)
 
 ######  END of the section to be edited
