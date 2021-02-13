@@ -6,22 +6,27 @@
 # requirements
 # pip3 install paho-mqtt
 # pip3 install mcrcon
+# pip3 install python-dotenv
 
 import paho.mqtt.client as mqtt
 from time import time, sleep
 import signal
 import socket
 from mcrcon import MCRcon
-import config    # my local config file
-
+import os
+from dotenv import load_dotenv
 
 # configuration
+load_dotenv()  # take environment variables from .env.
+
 base_topic = 'PI1'
-mqtt_hostname = config.mqtt_hostname
-mqtt_clientname = 'test client'
-rcon_hostname = '127.0.0.1'
-rcon_port = 25575
-rcon_password = config.rcon_password
+mqtt_hostname = os.getenv('MQTT_HOSTNAME')
+mqtt_port = int(os.getenv('MQTT_PORT'))
+#mqtt_clientname = 'mc-log-mqtt'
+input_filename = os.getenv('INPUT_FILENAME')
+rcon_hostname = os.getenv('RCON_HOSTNAME')
+rcon_port = os.getenv('RCON_PORT')
+rcon_password = os.getenv('RCON_PASSWORD')
 
 
 def send_to_RCON(command):
