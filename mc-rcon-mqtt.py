@@ -23,7 +23,6 @@ base_topic = 'PI1'
 mqtt_hostname = os.getenv('MQTT_HOSTNAME')
 mqtt_port = int(os.getenv('MQTT_PORT'))
 #mqtt_clientname = 'mc-log-mqtt'
-input_filename = os.getenv('INPUT_FILENAME')
 rcon_hostname = os.getenv('RCON_HOSTNAME')
 rcon_port = os.getenv('RCON_PORT')
 rcon_password = os.getenv('RCON_PASSWORD')
