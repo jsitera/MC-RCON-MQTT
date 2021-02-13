@@ -159,7 +159,7 @@ mqtt_client = mqtt.Client()
 mqtt_client.on_connect=on_connect  #bind call back function
 mqtt_client.loop_start()
 mqtt.Client.connected_flag=False
-print("Connecting to MQTT broker ",mqtt_hostname)
+print("Connecting to MQTT broker ",mqtt_hostname, "MQTT port: ", mqtt_port)
 mqtt_client.connect(mqtt_hostname,port=mqtt_port)
 while not mqtt_client.connected_flag: #wait in loop
     print("Wait for MQTT callback")
