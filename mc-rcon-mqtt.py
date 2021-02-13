@@ -170,7 +170,7 @@ mqtt_client.on_message = on_message
 # RCON connection initialization
 # Try to connect in infinite loop
 rconOK = False
-while not rconOK:
+while (not rconOK and not interrupted):
   try:
     mcr = MCRcon(rcon_hostname, rcon_password)
     mcr.connect()
@@ -180,7 +180,8 @@ while not rconOK:
   else:
     print("RCON connection established.")
     rconOK=True
-
+if interrupted:
+  sys.exit(0)
 
 mqtt_client.loop_start()
 sleep(1)
