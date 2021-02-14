@@ -184,7 +184,8 @@ while (not rconOK and not interrupted):
   try:
     mcr = MCRcon(rcon_hostname, rcon_password)
     mcr.connect()
-  except:
+  except ConnectionError as e:
+    print(e)
     print("Connect to rcon failed. Next try after 30s")
     sleep(30)
   else:
