@@ -12,6 +12,7 @@ import paho.mqtt.client as mqtt
 from time import time, sleep
 import signal
 import socket
+import sys
 from mcrcon import MCRcon
 import os
 from dotenv import load_dotenv
@@ -177,6 +178,7 @@ mqtt_client.on_message = on_message
 
 # RCON connection initialization
 # Try to connect in infinite loop
+print("Connecting to RCON at ",rcon_hostname, "RCON port (not implemented): ", rcon_port)
 rconOK = False
 while (not rconOK and not interrupted):
   try:
