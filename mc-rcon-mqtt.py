@@ -79,47 +79,47 @@ def on_message(client, userdata, message):
     elif "buttonBlue" in message.topic:
        
         if value == "on" :
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 180 4 113 minecraft:redstone_block'
+            command='function espcraft:button_blue_on'
             send_to_RCON(command)
         else:
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 180 4 113 minecraft:air'
+            command='function espcraft:button_blue_off'
             send_to_RCON(command)
 
     elif "buttonGreen" in message.topic:
        
         if value == "on" :
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 111 minecraft:redstone_block'
+            command='function espcraft:button_green_on'
             send_to_RCON(command)
         else:
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 111 minecraft:air'
+            command='function espcraft:button_green_off'
             send_to_RCON(command)
 
     elif "buttonRed" in message.topic:
        
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 190 4 116 minecraft:redstone_block'
+            command='function espcraft:button_red'
             send_to_RCON(command)
 
     elif "joystickX" in message.topic:
        
         if value == "R" :
-            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~0.25 ~ ~'
+            command='function espcraft:east'
             send_to_RCON(command)
         else:
-            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~-0.25 ~ ~'
+            command='function espcraft:west'
             send_to_RCON(command)
 
     elif "joystickY" in message.topic:
        
         if value == "U" :
-            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~ ~ ~-0.25'
+            command='function espcraft:north'
             send_to_RCON(command)
         else:
-            command='execute at @e[tag=emeraldblockmovable] run tp @e[tag=emeraldblockmovable] ~ ~ ~0.25'
+            command='function espcraft:south'
             send_to_RCON(command)
 
     elif "joystickB" in message.topic:
             
-            command='execute at @e[tag=world] if block 228 4 115 minecraft:diamond_block run setblock 183 4 113 minecraft:redstone_block'
+            command='function espcraft:joystick_button'
             send_to_RCON(command)
 
     elif "SendMessage" in message.topic:
