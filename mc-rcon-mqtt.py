@@ -138,11 +138,13 @@ def on_message(client, userdata, message):
             send_to_RCON(command)
 
     elif "ESPblock" in message.topic:
-            tokens = re.findall(r'/(.*)', message.topic)
-            name = tokens[0]
+            tokens = re.findall(r'/ESPblock/(.*)/(.*)', message.topic)
+            if tokens:
+                name=tokens[0][0]
+                channel=tokens[0][1]
        
-            command='execute as @e[tag=receiver,name=\'' + name + '\'] at @s run setblock ~ ~-1 ~ target[power=' + value +']'
-            send_to_RCON(command)
+                command='receive ' + name + ' ' + channel + ' ' + str(value).zfill(2)
+                send_to_RCON(command)
 
 ######  END of the section to be edited
 
